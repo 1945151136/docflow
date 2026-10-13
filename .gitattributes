@@ -1,0 +1,9 @@
+# Store LF in the repo, check out native line endings per platform.
+* text=auto eol=lf
+
+# Never let git touch these.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.pdf  binary
+*.docx binary

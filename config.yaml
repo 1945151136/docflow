@@ -1,0 +1,19 @@
+# docflow global configuration (overridable by env vars / CLI flags)
+
+default_backend: paddleocr   # somark | paddleocr | mistral | firecrawl
+
+splitter:
+  chunk_pages: 150           # pages per chunk (SoMark limit: <=300 pages/file, <=200MB/file)
+  max_bytes: 209715200       # 200 MB hard cap per chunk
+
+api:
+  qps: 4                     # requests per second (SoMark limit)
+  poll_interval: 4           # seconds between async status polls
+  timeout: 60                # per-request timeout (s)
+
+images:
+  dir: _images               # relative to output file's directory
+  width_inch: 6.0            # embedded image width in the Word doc
+
+markdown:
+  strip_split_comments: true

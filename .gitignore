@@ -1,0 +1,18 @@
+# secrets
+.env
+
+# python
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# tooling / scratch
+.venv/
+.pytest_cache/
+.docflow_work/
+
+# generated documents — this repo is code, not a document store
+out/
+*.docx

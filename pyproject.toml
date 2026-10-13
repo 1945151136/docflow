@@ -1,0 +1,59 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "docflow"
+version = "0.1.0"
+description = "Pluggable document converter: multi-cloud OCR/parse APIs + local OCR engines, with Markdown-to-Word export."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "Apache-2.0" }
+authors = [{ name = "docflow authors" }]
+keywords = ["pdf-to-markdown", "ocr", "document-conversion", "paddleocr", "markdown-to-docx", "docx", "pdf"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: Apache Software License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Text Processing :: Markup",
+    "Topic :: Document Convertors",
+]
+dependencies = [
+    "requests>=2.28",
+    "python-docx>=1.1",
+    "pyyaml>=6.0",
+    "pypdf>=4.0",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+# Cloud API backends (SoMark needs only requests, already in base)
+cloud = []
+# Local OCR engine (heavy). Install on demand.
+# Pinned to what the backend actually calls: PPStructureV3 only exists in
+# paddleocr >= 3 (which needs paddlepaddle >= 3), and building that pipeline
+# additionally needs the `doc-parser` extra — otherwise constructing it fails
+# with a paddlex DependencyError at runtime, after the install already looked
+# successful.
+paddle = ["paddlepaddle>=3.0", "paddleocr[doc-parser]>=3.0"]
+# Dev / tests
+dev = ["pytest>=7.0", "reportlab>=4.0"]
+
+[project.scripts]
+docflow = "docflow.cli:main"
+docflow-gui = "docflow.gui:main"
+
+[project.urls]
+Homepage = "https://github.com/1945151136/docflow"
+Repository = "https://github.com/1945151136/docflow"
+Issues = "https://github.com/1945151136/docflow/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
